@@ -11,35 +11,43 @@ const TodoItem = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      try {
-        const response = await fetch(TODO_URL);
-        if (!response.ok) {
-          throw new Error("Fetch error");
+    setLoading(true);
+    setTimeout(() => {
+      const fetchData = async () => {
+        try {
+          const response = await fetch(TODO_URL);
+          if (!response.ok) {
+            throw new Error("Fetch error");
+          }
+          const todosData: Todo[] = await response.json();
+          setTodos(todosData);
+        } catch (error: any) {
+          setError(error);
+        } finally {
+          setLoading(false);
         }
-        const todosData: Todo[] = await response.json();
-        setTodos(todosData);
-      } catch (error: any) {
-        setError(error);
-      } finally {
-        setLoading(false);
-      }
-    };
+      };
 
-    fetchData();
+      fetchData();
+    }, 3000);
   }, []);
 
   return (
-    <ul>
-      {todos.map((todo: Todo) => (
-        <li key={todo.id}>
-          <span className={todo.completed ? "completed" : ""}>
-            {todo.title}
-          </span>
-        </li>
-      ))}
-    </ul>
+    <>
+      {loading ? (
+        <div className="loader"></div>
+      ) : (
+        <ul>
+          {todos.map((todo: Todo) => (
+            <li key={todo.id}>
+              <span className={todo.completed ? "completed" : ""}>
+                {todo.title}
+              </span>
+            </li>
+          ))}
+        </ul>
+      )}
+    </>
   );
 };
 
