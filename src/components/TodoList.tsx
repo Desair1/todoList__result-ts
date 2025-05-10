@@ -50,7 +50,7 @@ const TodoList = () => {
         </button>
       </form>
 
-      <TodoItem refreshListFlag={refreshListFlag} />
+      <TodoItem refreshListFlag={refreshListFlag} isCreating={isCreating} refreshList={refreshList}/>
     </>
   );
 };

@@ -3,15 +3,15 @@ import { useEffect, useState, type Dispatch } from "react";
 import type { Todo } from "../types/Todo";
 
 import { TODO_URL } from "../DataBase/TODO_URL";
-// import styles from "../index.css";
+import styles from "../index.css";
 
 interface TodoItemProps {
   refreshListFlag: boolean;
   isCreating: boolean;
-  setIsCreating: React.Dispatch<React.SetStateAction<boolean>>
+  refreshList(): void;
 }
 
-const TodoItem = ({ refreshListFlag, isCreating, setIsCreating }: TodoItemProps) => {
+const TodoItem = ({ refreshListFlag, isCreating, refreshList}: TodoItemProps) => {
   const [loading, setLoading] = useState(false);
   const [todos, setTodos] = useState<Todo[]>([]);
   const [error, setError] = useState<string | null>(null);
@@ -41,7 +41,7 @@ const TodoItem = ({ refreshListFlag, isCreating, setIsCreating }: TodoItemProps)
   const requestCopmleteTask = (id: string) => {
     try {
       fetch(`${TODO_URL}/${id}`, {
-        method: "PUT",
+        method: "PATCH",
         headers: { "Content-type": "application/json; charset=utf-8" },
         body: JSON.stringify({
           completed: true,
@@ -50,6 +50,7 @@ const TodoItem = ({ refreshListFlag, isCreating, setIsCreating }: TodoItemProps)
         .then((rawResponse) => rawResponse.json())
         .then((response) => {
           console.log("Проверка", response);
+          refreshList()
         });
     } catch (error: unknown) {
       if (error === null) {
