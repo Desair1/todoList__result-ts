@@ -11,7 +11,7 @@ interface TodoItemProps {
   refreshList(): void;
 }
 
-const TodoItem = ({ refreshListFlag, isCreating, refreshList}: TodoItemProps) => {
+const TodoItem = ({ refreshListFlag, isCreating, refreshList }: TodoItemProps) => {
   const [loading, setLoading] = useState(false);
   const [todos, setTodos] = useState<Todo[]>([]);
   const [error, setError] = useState<string | null>(null);
@@ -53,11 +53,27 @@ const TodoItem = ({ refreshListFlag, isCreating, refreshList}: TodoItemProps) =>
           refreshList()
         });
     } catch (error: unknown) {
-      if (error === null) {
+      if (error === 'string') {
         console.log("Fetch error");
       }
     }
   };
+
+  const requestDeleteTask = (id: string) => {
+    try {
+      fetch(`${TODO_URL}/${id}`, {
+        method: 'DELETE'
+      }).then((rawResponse) => rawResponse.json())
+        .then((response) => {
+          console.log("Проверка", response);
+          refreshList()
+        });
+    } catch (error: unknown) {
+      if (error === 'string') {
+        console.log('fetch error')
+      }
+    }
+  }
 
 
   return (
@@ -68,7 +84,7 @@ const TodoItem = ({ refreshListFlag, isCreating, refreshList}: TodoItemProps) =>
             {todo.title}
           </span>
           <button disabled={isCreating} onClick={() => requestCopmleteTask(todo.id)}>Завершить</button>
-          <button disabled={isCreating}>Удалить</button>
+          <button disabled={isCreating} onClick={() => requestDeleteTask(todo.id)}>Удалить</button>
         </li>
       ))}
     </ul>

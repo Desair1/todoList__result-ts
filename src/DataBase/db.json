@@ -1,18 +1,3 @@
 {
-  "todos": [
-    {
-      "completed": true,
-      "id": "e154"
-    },
-    {
-      "id": "4c3a",
-      "title": "gaws",
-      "completed": true
-    },
-    {
-      "id": "ecf4",
-      "title": "gasg",
-      "completed": true
-    }
-  ]
+  "todos": []
 }
