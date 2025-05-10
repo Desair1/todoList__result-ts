@@ -1,13 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TodoItem from "./TodoItem";
 import { TODO_URL } from "../DataBase/TODO_URL";
 
 const TodoList = () => {
   const [inputValue, setInputValue] = useState("");
 
-  const addTask = async (text: string) => {
+  const addTask = (text: string) => {
     try {
-      await fetch(TODO_URL, {
+      fetch(TODO_URL, {
         method: "POST",
         headers: { "Content-type": "application/json; charset=utf-8" },
         body: JSON.stringify({
@@ -33,7 +33,7 @@ const TodoList = () => {
         <input
           type="text"
           placeholder="Введите задачу"
-          onChange={() => setInputValue}
+          onChange={(e) => setInputValue(e.target.value)}
         />
         <button onClick={() => addTask(inputValue)}>Добавить задачу</button>
       </form>
