@@ -7,9 +7,11 @@ import { TODO_URL } from "../DataBase/TODO_URL";
 
 interface TodoItemProps {
   refreshListFlag: boolean;
+  isCreating: boolean;
+  setIsCreating: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const TodoItem = ({ refreshListFlag }: TodoItemProps) => {
+const TodoItem = ({ refreshListFlag, isCreating, setIsCreating }: TodoItemProps) => {
   const [loading, setLoading] = useState(false);
   const [todos, setTodos] = useState<Todo[]>([]);
   const [error, setError] = useState<string | null>(null);
@@ -36,7 +38,26 @@ const TodoItem = ({ refreshListFlag }: TodoItemProps) => {
     fetchData();
   }, [refreshListFlag]);
 
-  const requestCopmleteTask = async () => {};
+  const requestCopmleteTask = (id: string) => {
+    try {
+      fetch(`${TODO_URL}/${id}`, {
+        method: "PUT",
+        headers: { "Content-type": "application/json; charset=utf-8" },
+        body: JSON.stringify({
+          completed: true,
+        }),
+      })
+        .then((rawResponse) => rawResponse.json())
+        .then((response) => {
+          console.log("Проверка", response);
+        });
+    } catch (error: unknown) {
+      if (error === null) {
+        console.log("Fetch error");
+      }
+    }
+  };
+
 
   return (
     <ul>
@@ -45,8 +66,8 @@ const TodoItem = ({ refreshListFlag }: TodoItemProps) => {
           <span className={todo.completed ? "completed" : ""}>
             {todo.title}
           </span>
-          <button>Завершить</button>
-          <button>Удалить</button>
+          <button disabled={isCreating} onClick={() => requestCopmleteTask(todo.id)}>Завершить</button>
+          <button disabled={isCreating}>Удалить</button>
         </li>
       ))}
     </ul>
