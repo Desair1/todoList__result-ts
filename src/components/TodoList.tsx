@@ -5,10 +5,12 @@ import { TODO_URL } from "../DataBase/TODO_URL";
 const TodoList = () => {
   const [inputValue, setInputValue] = useState("");
   const [refreshListFlag, setRefreshListFlag] = useState(false);
+  const [isCreating, setIsCreating] = useState(false);
 
   const refreshList = (): void => setRefreshListFlag(!refreshListFlag);
 
   const responseAddTask = (text: string) => {
+    setIsCreating(true);
     try {
       fetch(TODO_URL, {
         method: "POST",
@@ -22,7 +24,7 @@ const TodoList = () => {
         .then((response) => {
           console.log("Проверка", response);
         });
-
+      setIsCreating(false);
       refreshList();
     } catch (error: unknown) {
       if (error === null) {
@@ -40,7 +42,10 @@ const TodoList = () => {
           placeholder="Введите задачу"
           onChange={(e) => setInputValue(e.target.value)}
         />
-        <button onClick={() => responseAddTask(inputValue)}>
+        <button
+          disabled={isCreating}
+          onClick={() => responseAddTask(inputValue)}
+        >
           Добавить задачу
         </button>
       </form>

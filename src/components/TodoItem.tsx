@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type Dispatch } from "react";
 
 import type { Todo } from "../types/Todo";
 
@@ -35,6 +35,8 @@ const TodoItem = ({ refreshListFlag }: TodoItemProps) => {
 
     fetchData();
   }, [refreshListFlag]);
+
+  const requestCopmleteTask = async () => {};
 
   return (
     <ul>
