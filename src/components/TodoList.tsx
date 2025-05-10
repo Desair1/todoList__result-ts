@@ -1,11 +1,14 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import TodoItem from "./TodoItem";
 import { TODO_URL } from "../DataBase/TODO_URL";
 
 const TodoList = () => {
   const [inputValue, setInputValue] = useState("");
+  const [refreshListFlag, setRefreshListFlag] = useState(false);
 
-  const addTask = (text: string) => {
+  const refreshList = (): void => setRefreshListFlag(!refreshListFlag);
+
+  const responseAddTask = (text: string) => {
     try {
       fetch(TODO_URL, {
         method: "POST",
@@ -19,6 +22,8 @@ const TodoList = () => {
         .then((response) => {
           console.log("Проверка", response);
         });
+
+      refreshList();
     } catch (error: unknown) {
       if (error === null) {
         console.log("Fetch error");
@@ -35,10 +40,12 @@ const TodoList = () => {
           placeholder="Введите задачу"
           onChange={(e) => setInputValue(e.target.value)}
         />
-        <button onClick={() => addTask(inputValue)}>Добавить задачу</button>
+        <button onClick={() => responseAddTask(inputValue)}>
+          Добавить задачу
+        </button>
       </form>
 
-      <TodoItem />
+      <TodoItem refreshListFlag={refreshListFlag} />
     </>
   );
 };

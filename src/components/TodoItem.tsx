@@ -3,9 +3,13 @@ import { useEffect, useState } from "react";
 import type { Todo } from "../types/Todo";
 
 import { TODO_URL } from "../DataBase/TODO_URL";
-import styles from "../index.css";
+// import styles from "../index.css";
 
-const TodoItem = () => {
+interface TodoItemProps {
+  refreshListFlag: boolean;
+}
+
+const TodoItem = ({ refreshListFlag }: TodoItemProps) => {
   const [loading, setLoading] = useState(false);
   const [todos, setTodos] = useState<Todo[]>([]);
   const [error, setError] = useState<string | null>(null);
@@ -30,7 +34,7 @@ const TodoItem = () => {
     };
 
     fetchData();
-  }, []);
+  }, [refreshListFlag]);
 
   return (
     <ul>
