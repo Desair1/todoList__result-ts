@@ -3,7 +3,6 @@ import { useEffect, useState, type Dispatch } from "react";
 import type { Todo } from "../types/Todo";
 
 import { TODO_URL } from "../DataBase/TODO_URL";
-import styles from "../index.css";
 
 interface TodoItemProps {
   refreshListFlag: boolean;
@@ -83,7 +82,7 @@ const TodoItem = ({ refreshListFlag, isCreating, refreshList }: TodoItemProps) =
           <span className={todo.completed ? "completed" : ""}>
             {todo.title}
           </span>
-          <button disabled={isCreating} onClick={() => requestCopmleteTask(todo.id)}>Завершить</button>
+          <button disabled={isCreating || todo.completed} onClick={() => requestCopmleteTask(todo.id)}>Завершить</button>
           <button disabled={isCreating} onClick={() => requestDeleteTask(todo.id)}>Удалить</button>
         </li>
       ))}
