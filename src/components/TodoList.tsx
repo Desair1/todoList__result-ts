@@ -1,8 +1,30 @@
 import { useState } from "react";
 import TodoItem from "./TodoItem";
+import { TODO_URL } from "../DataBase/TODO_URL";
 
 const TodoList = () => {
   const [inputValue, setInputValue] = useState("");
+
+  const addTask = async (text: string) => {
+    try {
+      await fetch(TODO_URL, {
+        method: "POST",
+        headers: { "Content-type": "application/json; charset=utf-8" },
+        body: JSON.stringify({
+          title: text,
+          completed: false,
+        }),
+      })
+        .then((rawResponse) => rawResponse.json())
+        .then((response) => {
+          console.log("Проверка", response);
+        });
+    } catch (error: unknown) {
+      if (error === null) {
+        console.log("Fetch error");
+      }
+    }
+  };
 
   return (
     <>
@@ -13,7 +35,7 @@ const TodoList = () => {
           placeholder="Введите задачу"
           onChange={() => setInputValue}
         />
-        {/* <button onClick={() => addTask(inputValue)}>Добавить задачу</button> */}
+        <button onClick={() => addTask(inputValue)}>Добавить задачу</button>
       </form>
 
       <TodoItem />

@@ -1,9 +1,9 @@
+import { useEffect, useState } from "react";
+
 import type { Todo } from "../types/Todo";
 
-import { useEffect, useState } from "react";
+import { TODO_URL } from "../DataBase/TODO_URL";
 import styles from "../index.css";
-
-const TODO_URL = "https://jsonplaceholder.typicode.com/todos";
 
 const TodoItem = () => {
   const [loading, setLoading] = useState(false);
@@ -20,8 +20,10 @@ const TodoItem = () => {
         }
         const todosData: Todo[] = await response.json();
         setTodos(todosData);
-      } catch (error: any) {
-        setError(error);
+      } catch (error: unknown) {
+        if (error === null) {
+          setError(error);
+        }
       } finally {
         setLoading(false);
       }
@@ -37,6 +39,8 @@ const TodoItem = () => {
           <span className={todo.completed ? "completed" : ""}>
             {todo.title}
           </span>
+          <button>Завершить</button>
+          <button>Удалить</button>
         </li>
       ))}
     </ul>
