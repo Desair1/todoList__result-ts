@@ -1,6 +1,7 @@
 import { useState } from "react";
 import TodoItem from "./TodoItem";
 import { TODO_URL } from "../DataBase/TODO_URL";
+import SearchInput from "./SearchInput";
 
 const TodoList = () => {
   const [inputValue, setInputValue] = useState("");
@@ -36,6 +37,7 @@ const TodoList = () => {
   return (
     <>
       <h1>Todo-лист</h1>
+      <SearchInput />
       <form action="submit" onSubmit={(e) => e.preventDefault()}>
         <input
           type="text"
