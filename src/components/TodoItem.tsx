@@ -1,20 +1,19 @@
-import { useEffect, useState, type Dispatch } from "react";
+import { useEffect, useState } from "react";
 
 import type { Todo } from "../types/Todo";
 
 import { TODO_URL } from "../DataBase/TODO_URL";
-// import styles from "../index.css";
 
 interface TodoItemProps {
   refreshListFlag: boolean;
   isCreating: boolean;
-  setIsCreating: React.Dispatch<React.SetStateAction<boolean>>;
+  refreshList(): void;
 }
 
 const TodoItem = ({
   refreshListFlag,
   isCreating,
-  setIsCreating,
+  refreshList,
 }: TodoItemProps) => {
   const [loading, setLoading] = useState(false);
   const [todos, setTodos] = useState<Todo[]>([]);
@@ -42,11 +41,10 @@ const TodoItem = ({
     fetchData();
   }, [refreshListFlag]);
 
-  const requestCopmleteTask = async () => {
-    setIsCreating(true);
+  const requestCopmleteTask = (id: string) => {
     try {
-      fetch(`${TODO_URL}`, {
-        method: "PUT",
+      fetch(`${TODO_URL}/${id}`, {
+        method: "PATCH",
         headers: { "Content-type": "application/json; charset=utf-8" },
         body: JSON.stringify({
           completed: true,
@@ -55,11 +53,28 @@ const TodoItem = ({
         .then((rawResponse) => rawResponse.json())
         .then((response) => {
           console.log("Проверка", response);
+          refreshList();
         });
-      setIsCreating(false);
     } catch (error: unknown) {
-      if (error === null) {
+      if (error === "string") {
         console.log("Fetch error");
+      }
+    }
+  };
+
+  const requestDeleteTask = (id: string) => {
+    try {
+      fetch(`${TODO_URL}/${id}`, {
+        method: "DELETE",
+      })
+        .then((rawResponse) => rawResponse.json())
+        .then((response) => {
+          console.log("Проверка", response);
+          refreshList();
+        });
+    } catch (error: unknown) {
+      if (error === "string") {
+        console.log("fetch error");
       }
     }
   };
@@ -71,8 +86,18 @@ const TodoItem = ({
           <span className={todo.completed ? "completed" : ""}>
             {todo.title}
           </span>
-          <button disabled={isCreating}>Завершить</button>
-          <button disabled={isCreating}>Удалить</button>
+          <button
+            disabled={isCreating || todo.completed}
+            onClick={() => requestCopmleteTask(todo.id)}
+          >
+            Завершить
+          </button>
+          <button
+            disabled={isCreating}
+            onClick={() => requestDeleteTask(todo.id)}
+          >
+            Удалить
+          </button>
         </li>
       ))}
     </ul>

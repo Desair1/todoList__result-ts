@@ -53,7 +53,7 @@ const TodoList = () => {
       <TodoItem
         refreshListFlag={refreshListFlag}
         isCreating={isCreating}
-        setIsCreating={setIsCreating}
+        refreshList={refreshList}
       />
     </>
   );
