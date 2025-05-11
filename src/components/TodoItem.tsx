@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type Dispatch } from "react";
 
 import type { Todo } from "../types/Todo";
 
@@ -7,9 +7,15 @@ import { TODO_URL } from "../DataBase/TODO_URL";
 
 interface TodoItemProps {
   refreshListFlag: boolean;
+  isCreating: boolean;
+  setIsCreating: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const TodoItem = ({ refreshListFlag }: TodoItemProps) => {
+const TodoItem = ({
+  refreshListFlag,
+  isCreating,
+  setIsCreating,
+}: TodoItemProps) => {
   const [loading, setLoading] = useState(false);
   const [todos, setTodos] = useState<Todo[]>([]);
   const [error, setError] = useState<string | null>(null);
@@ -36,6 +42,28 @@ const TodoItem = ({ refreshListFlag }: TodoItemProps) => {
     fetchData();
   }, [refreshListFlag]);
 
+  const requestCopmleteTask = async () => {
+    setIsCreating(true);
+    try {
+      fetch(`${TODO_URL}`, {
+        method: "PUT",
+        headers: { "Content-type": "application/json; charset=utf-8" },
+        body: JSON.stringify({
+          completed: true,
+        }),
+      })
+        .then((rawResponse) => rawResponse.json())
+        .then((response) => {
+          console.log("Проверка", response);
+        });
+      setIsCreating(false);
+    } catch (error: unknown) {
+      if (error === null) {
+        console.log("Fetch error");
+      }
+    }
+  };
+
   return (
     <ul>
       {todos.map((todo: Todo) => (
@@ -43,8 +71,8 @@ const TodoItem = ({ refreshListFlag }: TodoItemProps) => {
           <span className={todo.completed ? "completed" : ""}>
             {todo.title}
           </span>
-          <button>Завершить</button>
-          <button>Удалить</button>
+          <button disabled={isCreating}>Завершить</button>
+          <button disabled={isCreating}>Удалить</button>
         </li>
       ))}
     </ul>
