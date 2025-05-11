@@ -7,6 +7,7 @@ const TodoList = () => {
   const [inputValue, setInputValue] = useState("");
   const [refreshListFlag, setRefreshListFlag] = useState(false);
   const [isCreating, setIsCreating] = useState(false);
+  const [searchValue, setSearchValue] = useState("");
 
   const refreshList = (): void => setRefreshListFlag(!refreshListFlag);
 
@@ -37,7 +38,7 @@ const TodoList = () => {
   return (
     <>
       <h1>Todo-лист</h1>
-      <SearchInput />
+      <SearchInput searchValue={searchValue} setSearchValue={setSearchValue} />
       <form action="submit" onSubmit={(e) => e.preventDefault()}>
         <input
           type="text"

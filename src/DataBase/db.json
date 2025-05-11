@@ -1,9 +1,3 @@
 {
-  "todos": [
-    {
-      "id": "b17e",
-      "title": "Сделать todo-лист при помощи firebase",
-      "completed": true
-    }
-  ]
+  "todos": []
 }

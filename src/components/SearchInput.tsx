@@ -1,10 +1,12 @@
-import { useState } from "react";
+interface SearchInputProps {
+  searchValue: string;
+  setSearchValue: React.Dispatch<React.SetStateAction<string>>;
+}
 
-const SearchInput = () => {
-  const [searchValue, setSearchValue] = useState("");
-
+const SearchInput = ({ searchValue, setSearchValue }: SearchInputProps) => {
   const debounce = <T extends (...args: any[]) => any>(fn: T, ms: number) => {
     let timer: number;
+    console.log(searchValue);
     return function (this: ThisParameterType<T>, ...args: Parameters<T>) {
       const fnCall = () => {
         fn.apply(this, args);
