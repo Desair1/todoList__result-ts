@@ -1,24 +1,3 @@
 {
-  "todos": [
-    {
-      "id": "37a7",
-      "title": "gaws",
-      "completed": false
-    },
-    {
-      "id": "e250",
-      "title": "gesd",
-      "completed": false
-    },
-    {
-      "id": "6981",
-      "title": "gsag",
-      "completed": false
-    },
-    {
-      "id": "f1a6",
-      "title": "gsag",
-      "completed": false
-    }
-  ]
+  "todos": []
 }
