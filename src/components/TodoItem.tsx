@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import type { Todo } from "../types/Todo";
 
 import { TODO_URL } from "../DataBase/TODO_URL";
+import useRequestCompleteTask from "../hooks/use-request-complete-task";
 
 interface TodoItemProps {
   refreshListFlag: boolean;
@@ -41,26 +42,7 @@ const TodoItem = ({
     fetchData();
   }, [refreshListFlag]);
 
-  const requestCopmleteTask = (id: string) => {
-    try {
-      fetch(`${TODO_URL}/${id}`, {
-        method: "PATCH",
-        headers: { "Content-type": "application/json; charset=utf-8" },
-        body: JSON.stringify({
-          completed: true,
-        }),
-      })
-        .then((rawResponse) => rawResponse.json())
-        .then((response) => {
-          console.log("Проверка", response);
-          refreshList();
-        });
-    } catch (error: unknown) {
-      if (error === "string") {
-        console.log("Fetch error");
-      }
-    }
-  };
+  const { requestCopmleteTask } = useRequestCompleteTask(refreshList);
 
   const requestDeleteTask = (id: string) => {
     try {
