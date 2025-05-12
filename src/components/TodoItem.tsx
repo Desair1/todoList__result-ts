@@ -4,6 +4,7 @@ import type { Todo } from "../types/Todo";
 
 import { TODO_URL } from "../DataBase/TODO_URL";
 import useRequestCompleteTask from "../hooks/use-request-complete-task";
+import useRequestDeleteTask from "../hooks/use-request-delete-task";
 
 interface TodoItemProps {
   refreshListFlag: boolean;
@@ -44,22 +45,7 @@ const TodoItem = ({
 
   const { requestCopmleteTask } = useRequestCompleteTask(refreshList);
 
-  const requestDeleteTask = (id: string) => {
-    try {
-      fetch(`${TODO_URL}/${id}`, {
-        method: "DELETE",
-      })
-        .then((rawResponse) => rawResponse.json())
-        .then((response) => {
-          console.log("Проверка", response);
-          refreshList();
-        });
-    } catch (error: unknown) {
-      if (error === "string") {
-        console.log("fetch error");
-      }
-    }
-  };
+  const { requestDeleteTask } = useRequestDeleteTask(refreshList);
 
   return (
     <ul>
