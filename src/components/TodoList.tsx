@@ -1,39 +1,16 @@
 import { useState } from "react";
+import useResponseAddTask from "../hooks/use-response-add-task";
+
 import TodoItem from "./TodoItem";
-import { TODO_URL } from "../DataBase/TODO_URL";
 import SearchInput from "./SearchInput";
 
 const TodoList = () => {
   const [inputValue, setInputValue] = useState("");
   const [refreshListFlag, setRefreshListFlag] = useState(false);
-  const [isCreating, setIsCreating] = useState(false);
   const [searchValue, setSearchValue] = useState("");
 
   const refreshList = (): void => setRefreshListFlag(!refreshListFlag);
-
-  const responseAddTask = (text: string) => {
-    setIsCreating(true);
-    try {
-      fetch(TODO_URL, {
-        method: "POST",
-        headers: { "Content-type": "application/json; charset=utf-8" },
-        body: JSON.stringify({
-          title: text,
-          completed: false,
-        }),
-      })
-        .then((rawResponse) => rawResponse.json())
-        .then((response) => {
-          console.log("Проверка", response);
-        });
-      setIsCreating(false);
-      refreshList();
-    } catch (error: unknown) {
-      if (error === null) {
-        console.log("Fetch error");
-      }
-    }
-  };
+  const { responseAddTask, isCreating } = useResponseAddTask(refreshList);
 
   return (
     <>

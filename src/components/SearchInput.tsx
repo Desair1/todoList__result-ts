@@ -1,9 +1,5 @@
 import { useDebounce } from "../hooks/use-debounce";
-
-interface SearchInputProps {
-  searchValue: string;
-  setSearchValue: React.Dispatch<React.SetStateAction<string>>;
-}
+import type { SearchInputProps } from "../types/SearchInputPropts";
 
 const SearchInput = ({ searchValue, setSearchValue }: SearchInputProps) => {
   const { debounce } = useDebounce(searchValue);
