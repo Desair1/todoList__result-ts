@@ -1,10 +1,9 @@
-import { useEffect, useState } from "react";
 
 import type { Todo } from "../types/Todo";
 
-import { TODO_URL } from "../DataBase/TODO_URL";
 import useRequestCompleteTask from "../hooks/use-request-complete-task";
 import useRequestDeleteTask from "../hooks/use-request-delete-task";
+import useFetchTodos from "../hooks/use-fetch-todos";
 
 interface TodoItemProps {
   refreshListFlag: boolean;
@@ -17,31 +16,8 @@ const TodoItem = ({
   isCreating,
   refreshList,
 }: TodoItemProps) => {
-  const [loading, setLoading] = useState(false);
-  const [todos, setTodos] = useState<Todo[]>([]);
-  const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      try {
-        const response = await fetch(TODO_URL);
-        if (!response.ok) {
-          throw new Error("Fetch error");
-        }
-        const todosData: Todo[] = await response.json();
-        setTodos(todosData);
-      } catch (error: unknown) {
-        if (error === "string") {
-          setError(error);
-        }
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, [refreshListFlag]);
+  const { todos } = useFetchTodos(refreshListFlag)
 
   const { requestCopmleteTask } = useRequestCompleteTask(refreshList);
 
