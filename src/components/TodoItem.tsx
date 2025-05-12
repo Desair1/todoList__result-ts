@@ -30,7 +30,7 @@ const TodoItem = ({
         const todosData: Todo[] = await response.json();
         setTodos(todosData);
       } catch (error: unknown) {
-        if (error === null) {
+        if (error === "string") {
           setError(error);
         }
       } finally {
