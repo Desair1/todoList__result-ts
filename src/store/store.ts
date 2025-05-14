@@ -6,3 +6,7 @@ export const store = configureStore({
     todos: todosReducer,
   },
 });
+
+export type TodosState = ReturnType<typeof store.getState>;
+
+export type AppDispatch = typeof store.dispatch;
