@@ -10,12 +10,14 @@ interface TodosState {
   todos: Todo[];
   loading: boolean;
   error: string | null;
+  searchValue: string;
 }
 
 const initialState: TodosState = {
   todos: [],
   loading: false,
   error: null,
+  searchValue: "",
 };
 
 export const fetchTodos = createAsyncThunk("todos/fetchTodos", async () => {
@@ -94,6 +96,9 @@ export const todosSlice = createSlice({
     setError: (state, action: PayloadAction<string | null>) => {
       state.error = action.payload;
     },
+    setSearchValue: (state, action: PayloadAction<string>) => {
+      state.searchValue = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -158,6 +163,7 @@ export const {
   updateTodo,
   setLoading,
   setError,
+  setSearchValue,
 } = todosSlice.actions;
 
 export default todosSlice.reducer;

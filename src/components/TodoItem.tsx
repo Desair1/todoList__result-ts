@@ -10,7 +10,6 @@ interface TodoItemProps {
 
 const TodoItem = ({ todo }: TodoItemProps) => {
   const dispatch = useDispatch<AppDispatch>();
-  const todos = useSelector((state: RootState) => state.todos.todos);
   const loading = useSelector((state: RootState) => state.todos.loading);
   const error = useSelector((state: RootState) => state.todos.error);
 
