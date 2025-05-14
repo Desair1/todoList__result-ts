@@ -56,12 +56,14 @@ export const deleteTodoAsync = createAsyncThunk(
 export const updateTodoAsync = createAsyncThunk(
   "todo/updateTodo",
   async (todo: Todo) => {
+    console.log("Sending to backend:", todo);
     const response = await fetch(`${TODO_URL}/${todo.id}`, {
-      method: "PUT",
+      method: "PATCH",
       headers: { "Content-type": "application/json; charset=utf-8" },
-      body: JSON.stringify(todo),
+      body: JSON.stringify({ completed: !todo.completed }),
     });
     const data = await response.json();
+    console.log("Response from server:", data);
     return data as Todo;
   }
 );
@@ -136,6 +138,7 @@ export const todosSlice = createSlice({
         state.error = null;
       })
       .addCase(updateTodoAsync.fulfilled, (state, action) => {
+        console.log("Action payload:", action.payload); // Проверяем payload
         state.todos = state.todos.map((todo) =>
           todo.id === action.payload.id ? action.payload : todo
         );

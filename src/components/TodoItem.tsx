@@ -1,50 +1,42 @@
-
 import type { Todo } from "../types/Todo";
 
-import useRequestCompleteTask from "../hooks/use-request-complete-task";
-import useRequestDeleteTask from "../hooks/use-request-delete-task";
-import useFetchTodos from "../hooks/use-fetch-todos";
+import { useDispatch, useSelector } from "react-redux";
+import type { AppDispatch, RootState } from "../store/store";
+import { deleteTodoAsync, updateTodoAsync } from "../store/todosSlice";
 
 interface TodoItemProps {
-  refreshListFlag: boolean;
-  isCreating: boolean;
-  refreshList(): void;
+  todo: Todo;
 }
 
-const TodoItem = ({
-  refreshListFlag,
-  isCreating,
-  refreshList,
-}: TodoItemProps) => {
+const TodoItem = ({ todo }: TodoItemProps) => {
+  const dispatch = useDispatch<AppDispatch>();
+  const todos = useSelector((state: RootState) => state.todos.todos);
+  const loading = useSelector((state: RootState) => state.todos.loading);
+  const error = useSelector((state: RootState) => state.todos.error);
 
-  const { todos } = useFetchTodos(refreshListFlag)
+  const requestCopmleteTask = (todo: Todo) => {
+    dispatch(updateTodoAsync({ ...todo, completed: todo.completed }));
+  };
 
-  const { requestCopmleteTask } = useRequestCompleteTask(refreshList);
-
-  const { requestDeleteTask } = useRequestDeleteTask(refreshList);
+  const requestDeleteTask = (id: string) => {
+    dispatch(deleteTodoAsync(id));
+  };
 
   return (
-    <ul>
-      {todos.map((todo: Todo) => (
-        <li key={todo.id}>
-          <span className={todo.completed ? "completed" : ""}>
-            {todo.title}
-          </span>
-          <button
-            disabled={isCreating || todo.completed}
-            onClick={() => requestCopmleteTask(todo.id)}
-          >
-            Завершить
-          </button>
-          <button
-            disabled={isCreating}
-            onClick={() => requestDeleteTask(todo.id)}
-          >
-            Удалить
-          </button>
-        </li>
-      ))}
-    </ul>
+    <>
+      <li key={todo.id}>
+        <span className={todo.completed ? "completed" : ""}>{todo.title}</span>
+        <button
+          disabled={loading || todo.completed}
+          onClick={() => requestCopmleteTask(todo)}
+        >
+          Завершить
+        </button>
+        <button disabled={loading} onClick={() => requestDeleteTask(todo.id)}>
+          Удалить
+        </button>
+      </li>
+    </>
   );
 };
 
