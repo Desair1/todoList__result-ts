@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 import { addTodoAsync, fetchTodos, setSearchValue } from "../store/todosSlice";
@@ -7,6 +7,8 @@ import type { AppDispatch, RootState } from "../store/store";
 import TodoItem from "./TodoItem";
 import SearchInput from "./SearchInput";
 import type { Todo } from "../types/Todo";
+import React from "react";
+import AddTodoForm from "./AddTodoForm";
 
 const TodoList = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -20,18 +22,22 @@ const TodoList = () => {
   useEffect(() => {
     dispatch(fetchTodos());
   }, [dispatch]);
-  const [inputValue, setInputValue] = useState("");
-
-  const responseAddTask = (title: string) => {
-    dispatch(addTodoAsync(title));
-  };
 
   const handleFilterTodos = (title: string) => {
     dispatch(setSearchValue(title));
   };
 
-  const filteredTodos = todos.filter((todo) =>
-    todo.title.toLowerCase().includes(searchValue.toLowerCase())
+  const filteredTodos = useMemo(() => {
+    return todos.filter((todo) =>
+      todo.title.toLowerCase().includes(searchValue.toLowerCase())
+    );
+  }, [todos, searchValue]);
+
+  const responseAddTask = useCallback(
+    (title: string) => {
+      dispatch(addTodoAsync(title));
+    },
+    [dispatch]
   );
 
   return (
@@ -41,16 +47,7 @@ const TodoList = () => {
         searchValue={searchValue}
         setSearchValue={handleFilterTodos}
       />
-      <form action="submit" onSubmit={(e) => e.preventDefault()}>
-        <input
-          type="text"
-          placeholder="Введите задачу"
-          onChange={(e) => setInputValue(e.target.value)}
-        />
-        <button disabled={loading} onClick={() => responseAddTask(inputValue)}>
-          Добавить задачу
-        </button>
-      </form>
+      <AddTodoForm responseAddTask={responseAddTask} loading={loading} />
       <ul>
         {filteredTodos.map((todo: Todo) => (
           <TodoItem key={todo.id} todo={todo} />
@@ -60,4 +57,4 @@ const TodoList = () => {
   );
 };
 
-export default TodoList;
+export default React.memo(TodoList);

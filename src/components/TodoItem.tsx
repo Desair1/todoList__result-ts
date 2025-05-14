@@ -1,4 +1,5 @@
 import type { Todo } from "../types/Todo";
+import React, { useCallback } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch, RootState } from "../store/store";
@@ -11,15 +12,20 @@ interface TodoItemProps {
 const TodoItem = ({ todo }: TodoItemProps) => {
   const dispatch = useDispatch<AppDispatch>();
   const loading = useSelector((state: RootState) => state.todos.loading);
-  const error = useSelector((state: RootState) => state.todos.error);
 
-  const requestCopmleteTask = (todo: Todo) => {
-    dispatch(updateTodoAsync({ ...todo, completed: todo.completed }));
-  };
+  const requestCopmleteTask = useCallback(
+    (todo: Todo) => {
+      dispatch(updateTodoAsync({ ...todo, completed: todo.completed }));
+    },
+    [dispatch]
+  );
 
-  const requestDeleteTask = (id: string) => {
-    dispatch(deleteTodoAsync(id));
-  };
+  const requestDeleteTask = useCallback(
+    (id: string) => {
+      dispatch(deleteTodoAsync(id));
+    },
+    [dispatch]
+  );
 
   return (
     <>
@@ -39,4 +45,4 @@ const TodoItem = ({ todo }: TodoItemProps) => {
   );
 };
 
-export default TodoItem;
+export default React.memo(TodoItem);
