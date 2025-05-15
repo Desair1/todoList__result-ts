@@ -44,10 +44,7 @@ const TodoList = () => {
   return (
     <>
       <h1>Todo-лист</h1>
-      <SearchInput
-        searchValue={searchValue}
-        setSearchValue={handleFilterTodos}
-      />
+      <SearchInput setSearchValue={handleFilterTodos} />
       <AddTodoForm responseAddTask={responseAddTask} loading={loading} />
       <ul>
         {error

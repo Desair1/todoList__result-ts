@@ -10,7 +10,7 @@ interface AddTodoFormProps {
 const AddTodoForm = ({ loading, responseAddTask }: AddTodoFormProps) => {
   const [inputValue, setInputValue] = useState("");
 
-  const { debounce } = useDebounce(inputValue);
+  const { debounce } = useDebounce();
 
   const memoizedSetInputValue = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {

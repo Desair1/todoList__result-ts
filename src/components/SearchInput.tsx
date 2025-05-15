@@ -1,12 +1,11 @@
 import { useDebounce } from "../hooks/use-debounce";
 
 interface SearchInputProps {
-  searchValue: string;
   setSearchValue: (value: string) => void;
 }
 
-const SearchInput = ({ searchValue, setSearchValue }: SearchInputProps) => {
-  const { debounce } = useDebounce(searchValue);
+const SearchInput = ({ setSearchValue }: SearchInputProps) => {
+  const { debounce } = useDebounce();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(event.target.value);
