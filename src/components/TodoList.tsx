@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useCallback, useEffect, useMemo } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -20,6 +20,12 @@ const TodoList = () => {
     (state: RootState) => state.todos.searchValue
   );
 
+  const [isSortedAlphabetically, setIsSortedAlphabetically] = useState(false);
+
+  const toggleSortAlphabetically = () => {
+    setIsSortedAlphabetically(!isSortedAlphabetically);
+  };
+
   useEffect(() => {
     dispatch(fetchTodos());
   }, [dispatch]);
@@ -29,10 +35,16 @@ const TodoList = () => {
   };
 
   const filteredTodos = useMemo(() => {
-    return todos.filter((todo) =>
+    let sortedTodos = todos;
+
+    if (isSortedAlphabetically) {
+      sortedTodos = [...todos].sort((a, b) => a.title.localeCompare(b.title));
+    }
+
+    return sortedTodos.filter((todo) =>
       todo.title.toLowerCase().includes(searchValue.toLowerCase())
     );
-  }, [todos, searchValue]);
+  }, [todos, searchValue, isSortedAlphabetically]);
 
   const responseAddTask = useCallback(
     (title: string) => {
@@ -46,6 +58,11 @@ const TodoList = () => {
       <h1>Todo-лист</h1>
       <SearchInput setSearchValue={handleFilterTodos} />
       <AddTodoForm responseAddTask={responseAddTask} loading={loading} />
+      <button onClick={toggleSortAlphabetically}>
+        {isSortedAlphabetically
+          ? "Выключить сортировку"
+          : "Включить сортировку по алфавиту"}
+      </button>
       <ul>
         {error
           ? error
