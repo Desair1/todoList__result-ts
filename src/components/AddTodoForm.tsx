@@ -1,5 +1,6 @@
-import { useCallback, useState } from "react";
 import React from "react";
+import { useCallback, useState } from "react";
+import { useDebounce } from "../hooks/use-debounce";
 
 interface AddTodoFormProps {
   loading: boolean;
@@ -7,9 +8,9 @@ interface AddTodoFormProps {
 }
 
 const AddTodoForm = ({ loading, responseAddTask }: AddTodoFormProps) => {
-  console.log("TodoForm rerender");
-
   const [inputValue, setInputValue] = useState("");
+
+  const { debounce } = useDebounce(inputValue);
 
   const memoizedSetInputValue = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -23,7 +24,7 @@ const AddTodoForm = ({ loading, responseAddTask }: AddTodoFormProps) => {
       <input
         type="text"
         placeholder="Введите задачу"
-        onChange={(event) => memoizedSetInputValue(event)}
+        onChange={debounce((event) => memoizedSetInputValue(event), 350)}
       />
       <button disabled={loading} onClick={() => responseAddTask(inputValue)}>
         Добавить задачу

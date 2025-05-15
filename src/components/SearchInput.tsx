@@ -1,4 +1,5 @@
 import { useDebounce } from "../hooks/use-debounce";
+
 interface SearchInputProps {
   searchValue: string;
   setSearchValue: (value: string) => void;

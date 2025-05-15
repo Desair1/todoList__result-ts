@@ -1,4 +1,5 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import React from "react";
+import { useCallback, useEffect, useMemo } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 import { addTodoAsync, fetchTodos, setSearchValue } from "../store/todosSlice";
@@ -6,9 +7,9 @@ import type { AppDispatch, RootState } from "../store/store";
 
 import TodoItem from "./TodoItem";
 import SearchInput from "./SearchInput";
-import type { Todo } from "../types/Todo";
-import React from "react";
 import AddTodoForm from "./AddTodoForm";
+
+import type { Todo } from "../types/Todo";
 
 const TodoList = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -49,9 +50,11 @@ const TodoList = () => {
       />
       <AddTodoForm responseAddTask={responseAddTask} loading={loading} />
       <ul>
-        {filteredTodos.map((todo: Todo) => (
-          <TodoItem key={todo.id} todo={todo} />
-        ))}
+        {error
+          ? error
+          : filteredTodos.map((todo: Todo) => (
+              <TodoItem key={todo.id} todo={todo} />
+            ))}
       </ul>
     </>
   );
