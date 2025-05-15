@@ -14,8 +14,9 @@ const SearchInput = ({ setSearchValue }: SearchInputProps) => {
   return (
     <>
       <input
+        className="search-form"
         type="text"
-        placeholder="Введите запрос..."
+        placeholder="Поиск задач..."
         onChange={debounce((event) => handleChange(event), 350)}
       />
     </>

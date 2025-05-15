@@ -42,7 +42,7 @@ const TodoList = () => {
   );
 
   return (
-    <>
+    <section className="container">
       <h1>Todo-лист</h1>
       <SearchInput setSearchValue={handleFilterTodos} />
       <AddTodoForm responseAddTask={responseAddTask} loading={loading} />
@@ -53,7 +53,7 @@ const TodoList = () => {
               <TodoItem key={todo.id} todo={todo} />
             ))}
       </ul>
-    </>
+    </section>
   );
 };
 
