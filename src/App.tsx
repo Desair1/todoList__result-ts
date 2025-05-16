@@ -1,8 +1,16 @@
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import TodoList from "./components/TodoList";
-import styles from "./index.css";
+import TodoDetails from "./components/TodoDetails";
 
 function App() {
-  return <TodoList />;
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<TodoList />} />
+        <Route path="/task/:id" element={<TodoDetails />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
 export default App;

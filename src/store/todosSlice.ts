@@ -21,11 +21,19 @@ const initialState: TodosState = {
 };
 
 export const fetchTodos = createAsyncThunk("todos/fetchTodos", async () => {
+  console.log("fetchTodos: Запрос к API...");
   const response = await fetch(TODO_URL);
+  console.log("fetchTodos: Ответ API:", response);
   if (!response.ok) {
+    console.error(
+      "fetchTodos: Ошибка при запросе к API:",
+      response.status,
+      response.statusText
+    );
     throw new Error("Failed to fetch todos");
   }
   const data = await response.json();
+  console.log("fetchTodos: Данные API:", data);
   return data as Todo[];
 });
 

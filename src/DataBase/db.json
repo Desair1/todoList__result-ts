@@ -1,24 +1,9 @@
 {
   "todos": [
     {
-      "title": "Вот пример",
+      "title": "",
       "completed": false,
       "id": 1
-    },
-    {
-      "title": "А вот другой",
-      "completed": false,
-      "id": 2
-    },
-    {
-      "title": "some cases",
-      "completed": false,
-      "id": 3
-    },
-    {
-      "title": "Бомба",
-      "completed": false,
-      "id": 4
     }
   ]
 }
