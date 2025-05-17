@@ -1,0 +1,54 @@
+[33ma0e61ce[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mRouting[m[33m, [m[1;31morigin/JSONServer[m[33m, [m[1;32mJSONServer[m[33m)[m HEAD@{0}: reset: moving to HEAD~1
+[33m9c033fe[m[33m ([m[1;31morigin/Routing[m[33m)[m HEAD@{1}: checkout: moving from a0e61cecdd8e31591261de3016ecd840ce1ae949 to Routing
+[33ma0e61ce[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mRouting[m[33m, [m[1;31morigin/JSONServer[m[33m, [m[1;32mJSONServer[m[33m)[m HEAD@{2}: checkout: moving from Routing to a0e61ce
+[33m9c033fe[m[33m ([m[1;31morigin/Routing[m[33m)[m HEAD@{3}: commit: Added routing. Need to refactore code and complete TodoDetails
+[33ma0e61ce[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mRouting[m[33m, [m[1;31morigin/JSONServer[m[33m, [m[1;32mJSONServer[m[33m)[m HEAD@{4}: checkout: moving from JSONServer to Routing
+[33ma0e61ce[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mRouting[m[33m, [m[1;31morigin/JSONServer[m[33m, [m[1;32mJSONServer[m[33m)[m HEAD@{5}: checkout: moving from 3f1e00124c21c40d40c95f6082df90d0bca32901 to JSONServer
+[33m3f1e001[m HEAD@{6}: checkout: moving from JSONServer to 3f1e00124c21c40d40c95f6082df90d0bca32901
+[33ma0e61ce[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mRouting[m[33m, [m[1;31morigin/JSONServer[m[33m, [m[1;32mJSONServer[m[33m)[m HEAD@{7}: checkout: moving from 3f1e00124c21c40d40c95f6082df90d0bca32901 to JSONServer
+[33m3f1e001[m HEAD@{8}: checkout: moving from JSONServer to 3f1e00124c21c40d40c95f6082df90d0bca32901
+[33ma0e61ce[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mRouting[m[33m, [m[1;31morigin/JSONServer[m[33m, [m[1;32mJSONServer[m[33m)[m HEAD@{9}: commit: added filter on list
+[33m6a26bc7[m HEAD@{10}: commit: add new styles.
+[33mc2395d2[m[33m ([m[1;32mJsonServer-changes[m[33m)[m HEAD@{11}: merge JsonServer-changes: Fast-forward
+[33me44f1f8[m HEAD@{12}: checkout: moving from JsonServer-changes to JSONServer
+[33mc2395d2[m[33m ([m[1;32mJsonServer-changes[m[33m)[m HEAD@{13}: checkout: moving from c2395d2959d3406c37f4c4290dca5a20fc0d92a8 to JsonServer-changes
+[33mc2395d2[m[33m ([m[1;32mJsonServer-changes[m[33m)[m HEAD@{14}: checkout: moving from JSONServer to c2395d2
+[33me44f1f8[m HEAD@{15}: pull: Fast-forward
+[33me2eed6e[m HEAD@{16}: checkout: moving from c2395d2959d3406c37f4c4290dca5a20fc0d92a8 to JSONServer
+[33mc2395d2[m[33m ([m[1;32mJsonServer-changes[m[33m)[m HEAD@{17}: commit: Deleted unused hooks. Deleted unused args in debounce func. Code refactored
+[33m44f47e9[m HEAD@{18}: commit: memoized complete. Code refactored a bit
+[33m837923c[m HEAD@{19}: commit: added memo. Deleted console.logs
+[33me44f1f8[m HEAD@{20}: checkout: moving from JSONServer to e44f1f8
+[33me2eed6e[m HEAD@{21}: checkout: moving from JSONServer to JSONServer
+[33me2eed6e[m HEAD@{22}: checkout: moving from JSONServer to JSONServer
+[33me2eed6e[m HEAD@{23}: reset: moving to HEAD~1
+[33me44f1f8[m HEAD@{24}: commit: code refactored. Added new redux state. Added search
+[33me2eed6e[m HEAD@{25}: commit: Redux added into TodoList and TodoItem
+[33mee88c1b[m HEAD@{26}: commit: Added exports from redux store. Provider connected
+[33m9cf72fd[m HEAD@{27}: commit: Added redux. Store and slice created, but nod connected.
+[33m3f1e001[m HEAD@{28}: pull origin JSONServer: Fast-forward
+[33m8ac8222[m HEAD@{29}: commit: code refactored. Added delete task hook. Renamed add task hook
+[33m260af93[m HEAD@{30}: commit: code refactored. Added use request hook
+[33m2c2306d[m HEAD@{31}: commit: code refactored. Created add-task hook
+[33m1eb01d2[m HEAD@{32}: commit: code refactored. Created use-Debounce hook
+[33m66f0035[m HEAD@{33}: commit: added props to SearchInput
+[33m0a30397[m HEAD@{34}: commit: added SearchInput to TodoList component
+[33mc9633ea[m HEAD@{35}: commit: added debounce func
+[33mdafe34d[m HEAD@{36}: commit (merge): merge remote branch
+[33m6957f95[m HEAD@{37}: commit: remote commit
+[33m1b32df6[m HEAD@{38}: checkout: moving from JSONServer to JSONServer
+[33m1b32df6[m HEAD@{39}: commit: remote commit
+[33m3df02be[m HEAD@{40}: reset: moving to HEAD~1
+[33m42826ab[m HEAD@{41}: checkout: moving from JSONServer to JSONServer
+[33m42826ab[m HEAD@{42}: commit: Added disabled on byns
+[33m3df02be[m HEAD@{43}: commit: Added autoupdate after adding task
+[33m1ef747b[m HEAD@{44}: commit: Fixed addTask. title value works correctly
+[33mf4ecd74[m HEAD@{45}: commit: Added JSON Server. Added database and POST method
+[33me6caca8[m[33m ([m[1;32mmaster[m[33m)[m HEAD@{46}: checkout: moving from JSON to JSONServer
+[33mc611976[m[33m ([m[1;31morigin/JSON[m[33m, [m[1;32mJSON[m[33m)[m HEAD@{47}: commit: added loader
+[33me6caca8[m[33m ([m[1;32mmaster[m[33m)[m HEAD@{48}: checkout: moving from JSONServer to JSON
+[33me6caca8[m[33m ([m[1;32mmaster[m[33m)[m HEAD@{49}: checkout: moving from JSON to JSONServer
+[33me6caca8[m[33m ([m[1;32mmaster[m[33m)[m HEAD@{50}: checkout: moving from master to JSON
+[33me6caca8[m[33m ([m[1;32mmaster[m[33m)[m HEAD@{51}: checkout: moving from JSON to master
+[33me6caca8[m[33m ([m[1;32mmaster[m[33m)[m HEAD@{52}: checkout: moving from master to JSON
+[33me6caca8[m[33m ([m[1;32mmaster[m[33m)[m HEAD@{53}: commit (initial): init commit

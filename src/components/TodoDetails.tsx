@@ -3,23 +3,20 @@ import React, { useCallback, useEffect } from "react";
 import type { Todo } from "../types/Todo";
 
 import { useDispatch, useSelector } from "react-redux";
-import {
-  deleteTodoAsync,
-  fetchTodos,
-  updateTodoAsync,
-} from "../store/todosSlice";
+import { deleteTodoAsync, updateTodoAsync } from "../store/todosSlice";
 import type { AppDispatch, RootState } from "../store/store";
 
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { TODO_URL } from "../DataBase/TODO_URL";
 
 const TodoDetails = () => {
-  const getTodoUrl = (id: string) => `${TODO_URL}/${id}`;
-  const { id } = useParams<{ id: string }>();
-
   const dispatch = useDispatch<AppDispatch>();
   const loading = useSelector((state: RootState) => state.todos.loading);
   const [todo, setTodo] = React.useState<Todo | undefined>(undefined);
+
+  const getTodoUrl = (id: string) => `${TODO_URL}/${id}`;
+  const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
 
   const requestCopmleteTask = useCallback(
     (todo: Todo) => {
@@ -31,6 +28,7 @@ const TodoDetails = () => {
   const requestDeleteTask = useCallback(
     (id: string) => {
       dispatch(deleteTodoAsync(id));
+      navigate("/");
     },
     [dispatch]
   );
@@ -54,7 +52,7 @@ const TodoDetails = () => {
 
   return (
     <>
-      <span className={todo.completed ? "completed" : ""}>{todo.title}</span>
+      <div className={todo.completed ? "completed" : ""}>{todo.title}</div>
       <button
         disabled={loading || todo.completed}
         onClick={() => requestCopmleteTask(todo)}
