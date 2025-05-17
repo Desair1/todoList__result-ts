@@ -14,7 +14,11 @@ const TaskDetails = () => {
   const todos = useSelector((state: RootState) => state.todos.todos);
   const loading = useSelector((state: RootState) => state.todos.loading);
 
-  const todo = todos.map((todo) => todo.id === id);
+  const todosCopy = [...todos];
+  const todo = todosCopy.find((todo) => {
+    console.log("Comparing todo.id:", todo.id, "with id:", id);
+    return String(todo.id) === id;
+  });
 
   console.log("typeof id", typeof id);
   console.log("id", id);
