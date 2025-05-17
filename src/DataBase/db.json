@@ -17,7 +17,7 @@
     },
     {
       "title": "Бомба",
-      "completed": false,
+      "completed": true,
       "id": 4
     }
   ]
