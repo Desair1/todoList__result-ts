@@ -48,6 +48,9 @@ const TaskDetails = () => {
     <div>
       {todo ? (
         <div>
+          <button className="task__btn-backward" onClick={() => navigate(-1)}>
+            Назад
+          </button>
           <div className={todo.completed ? "completed" : ""}>{todo.title}</div>
           <button
             disabled={loading || todo.completed}
@@ -60,7 +63,10 @@ const TaskDetails = () => {
           </button>
         </div>
       ) : (
-        <div>Задача не найдена!</div>
+        <>
+          <div>Задача не найдена!</div>
+          <button onClick={() => navigate("/")}>На главную</button>
+        </>
       )}
     </div>
   );
