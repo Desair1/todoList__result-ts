@@ -1,3 +1,29 @@
 {
-  "todos": []
+  "todos": [
+    {
+      "title": "Вот пример",
+      "completed": false,
+      "id": 1
+    },
+    {
+      "title": "А вот другой",
+      "completed": false,
+      "id": 2
+    },
+    {
+      "title": "some cases",
+      "completed": false,
+      "id": 3
+    },
+    {
+      "title": "Бомба",
+      "completed": true,
+      "id": 4
+    },
+    {
+      "title": "Более длинный пример для обрезания",
+      "completed": false,
+      "id": 5
+    }
+  ]
 }

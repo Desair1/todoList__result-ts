@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useCallback, useEffect, useMemo } from "react";
+import { useCallback, useEffect } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 import { addTodoAsync, fetchTodos, setSearchValue } from "../store/todosSlice";
@@ -10,6 +10,7 @@ import SearchInput from "./SearchInput";
 import AddTodoForm from "./AddTodoForm";
 
 import type { Todo } from "../types/Todo";
+import useFilteredTodos from "../hooks/use-filteredTodos";
 
 const TodoList = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -34,17 +35,11 @@ const TodoList = () => {
     dispatch(setSearchValue(title));
   };
 
-  const filteredTodos = useMemo(() => {
-    let sortedTodos = todos;
-
-    if (isSortedAlphabetically) {
-      sortedTodos = [...todos].sort((a, b) => a.title.localeCompare(b.title));
-    }
-
-    return sortedTodos.filter((todo) =>
-      todo.title.toLowerCase().includes(searchValue.toLowerCase())
-    );
-  }, [todos, searchValue, isSortedAlphabetically]);
+  const filteredTodos = useFilteredTodos(
+    todos,
+    isSortedAlphabetically,
+    searchValue
+  );
 
   const responseAddTask = useCallback(
     (title: string) => {

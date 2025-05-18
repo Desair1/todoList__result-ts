@@ -89,3 +89,9 @@ li span {
 .task-buttons button:hover {
   background-color: #6a994e;
 }
+
+.task__btn-backward {
+  position: absolute;
+  top: 1%;
+  left: 1%;
+}
