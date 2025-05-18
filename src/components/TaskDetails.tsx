@@ -3,7 +3,7 @@ import { deleteTodoAsync, updateTodoAsync } from "../store/todosSlice";
 import type { AppDispatch, RootState } from "../store/store";
 import { useCallback } from "react";
 import type { Todo } from "../types/Todo";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { TODO_URL } from "../DataBase/TODO_URL";
 
 const TaskDetails = () => {
@@ -19,6 +19,8 @@ const TaskDetails = () => {
     console.log("Comparing todo.id:", todo.id, "with id:", id);
     return String(todo.id) === id;
   });
+
+  const navigate = useNavigate();
 
   console.log("typeof id", typeof id);
   console.log("id", id);
@@ -38,21 +40,29 @@ const TaskDetails = () => {
   const requestDeleteTask = useCallback(
     (id: string) => {
       dispatch(deleteTodoAsync(id));
+      navigate(-1);
     },
     [dispatch]
   );
   return (
-    <>
-      {/* <button
-        disabled={loading || todo.completed}
-        onClick={() => requestCopmleteTask(todo)}
-      >
-        Завершить
-      </button>
-      <button disabled={loading} onClick={() => requestDeleteTask(todo.id)}>
-        Удалить
-      </button> */}
-    </>
+    <div>
+      {todo ? (
+        <div>
+          <div className={todo.completed ? "completed" : ""}>{todo.title}</div>
+          <button
+            disabled={loading || todo.completed}
+            onClick={() => requestCopmleteTask(todo)}
+          >
+            Завершить
+          </button>
+          <button disabled={loading} onClick={() => requestDeleteTask(todo.id)}>
+            Удалить
+          </button>
+        </div>
+      ) : (
+        <div>Задача не найдена!</div>
+      )}
+    </div>
   );
 };
 
