@@ -1,14 +1,15 @@
+import { useCallback } from "react";
+
 import { useDispatch, useSelector } from "react-redux";
 import { deleteTodoAsync, updateTodoAsync } from "../store/todosSlice";
 import type { AppDispatch, RootState } from "../store/store";
-import { useCallback } from "react";
+
 import type { Todo } from "../types/Todo";
+
 import { useNavigate, useParams } from "react-router-dom";
-import { TODO_URL } from "../DataBase/TODO_URL";
 
 const TaskDetails = () => {
   const { id } = useParams();
-  const taskURL = `${TODO_URL}/${id}`;
 
   const dispatch = useDispatch<AppDispatch>();
   const todos = useSelector((state: RootState) => state.todos.todos);
@@ -21,14 +22,6 @@ const TaskDetails = () => {
   });
 
   const navigate = useNavigate();
-
-  console.log("typeof id", typeof id);
-  console.log("id", id);
-  console.log("taskURL", taskURL);
-
-  console.log("todos", todos);
-  console.log("typeof todos", typeof todos);
-  console.log("todo", todo);
 
   const requestCopmleteTask = useCallback(
     (todo: Todo) => {
