@@ -2,7 +2,7 @@
   "todos": [
     {
       "title": "Вот пример",
-      "completed": false,
+      "completed": true,
       "id": 1
     },
     {
